@@ -2,14 +2,11 @@ package mobile.apps.ru
 
 import android.database.Cursor
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.ListView
-import mobile.apps.ru.Adapters.Specialization
 import mobile.apps.ru.Adapters.Staff
 
 class ListStaff : Fragment() {
@@ -39,8 +36,8 @@ class ListStaff : Fragment() {
         cursor.close()
 
         /** Адаптер заполнения списка сотрудников */
-        var adapter = Staff(context, listId)
         var list = rootView.findViewById<ListView>(R.id.listStaff)
+        var adapter = Staff(context, listId, list)
         list.adapter = adapter
 
         return rootView

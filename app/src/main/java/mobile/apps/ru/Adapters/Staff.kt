@@ -9,20 +9,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import kotlinx.android.synthetic.main.grid_staff.view.*
-import mobile.apps.ru.*
-import java.text.SimpleDateFormat
+import mobile.apps.ru.Home
+import mobile.apps.ru.InfoPersonal
+import mobile.apps.ru.R
+import mobile.apps.ru.Utils
 import java.util.*
 
 class Staff(
     var context: Context?,
     var list: ArrayList<Int>,
+    var listView: ListView,
 ) : BaseAdapter(){
 
     private val inflater: LayoutInflater = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-    var oldview: View? = null
-    var oldPosition = 0
+    var oldPosition = -1
 
     override fun getCount(): Int {
         return list.size
@@ -82,14 +86,16 @@ class Staff(
 
 
         grid.setOnClickListener {
-            Log.e("CLick", position.toString())
-            if(oldview != null) {
-                oldview!!.parentView.setBackgroundColor(Color.WHITE)
-                oldview!!.fio.setTextColor(Color.BLACK)
-                oldview!!.birthday.setTextColor(Color.BLACK)
+
+            try {
+                Log.e("oldPosition", oldPosition.toString())
+                var view = Utils.getViewByPosition(oldPosition, listView)
+                view!!.parentView.setBackgroundColor(Color.WHITE)
+                view!!.fio.setTextColor(Color.BLACK)
+                view!!.birthday.setTextColor(Color.BLACK)
+            }catch (e: Exception){
+
             }
-            oldview = grid
-            oldPosition = position
 
             grid.parentView.setBackgroundColor(context!!.resources.getColor(R.color.red))
             grid.fio.setTextColor(Color.WHITE)
@@ -102,6 +108,7 @@ class Staff(
             ft.replace(R.id.container3, frInfoPersonal)
             ft.commit()
 
+            oldPosition = position
         }
 
         return grid

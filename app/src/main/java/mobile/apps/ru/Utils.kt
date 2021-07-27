@@ -1,6 +1,8 @@
 package mobile.apps.ru
 
 import android.util.Log
+import android.view.View
+import android.widget.ListView
 import kotlinx.android.synthetic.main.grid_staff.view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -61,6 +63,17 @@ class Utils {
                 }
             }
             return age.toString()
+        }
+
+        fun getViewByPosition(pos: Int, listView: ListView): View? {
+            val firstListItemPosition = listView.firstVisiblePosition
+            val lastListItemPosition = firstListItemPosition + listView.childCount - 1
+            return if (pos < firstListItemPosition || pos > lastListItemPosition) {
+                listView.adapter.getView(pos, null, listView)
+            } else {
+                val childIndex = pos - firstListItemPosition
+                listView.getChildAt(childIndex)
+            }
         }
     }
 }

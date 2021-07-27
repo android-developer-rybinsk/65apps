@@ -46,6 +46,7 @@ class InfoPersonal : Fragment() {
                         return false
                     }
                     override fun onResourceReady(p0: Drawable?, p1: Any?, p2: com.bumptech.glide.request.target.Target<Drawable>?, p3: DataSource?, p4: Boolean): Boolean {
+                        rootView.findViewById<ImageView>(R.id.icon).visibility = View.VISIBLE
                         return false
                     }
                 })
